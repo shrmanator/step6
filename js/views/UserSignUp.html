@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- THE USER SIGN UP PAGE.
+ IT GETS THE USER'S INFO AND LOCATION -->
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/sign.css">
+
+</head>
+    <h2 class="main-head">There are 192830 people who know this climate very well.</h2>
+    <h3 class="sub-head">Create an account to find out more.</h3>
+<body>
+
+    <a class="wat"></a>
+    <div class="topnav">
+        <a href="../js/views/UserLogin.html" class="button"><i class="fa fa-sign-in"> Login </i></a>
+        <a href="../js/views/UserSignUp.html" class="button"><i class="fa fa-user-plus"> Sign up </i></a>
+        <a href="../js/views/UserWeather.html" class="button"><i class="fa fa-sun-o"> Weather</i></a>
+        <a href="../js/views/UserLocation.html" class="button"><i class="fa fa-map-marker"> Locations </i></a>
+        <a href="../js/views/UserAccount.html" class="button"><i class="fa fa-user-o"> My page</i></a>
+        <a href="../js/views/search.html" class="button"><i class="fa fa-search"> Search </i></a>
+    </div>
+
+
+    <!--the page heading -->
+    <h1 id="header" class="header"></h1>
+    <div id="container">
+
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+        <!-- implement the "passwords do not match and the "no email and stuff -->
+        <label>
+            <b>firstName</b>
+            <input type="text" placeholder="Enter firstName" name="firstName" required >
+            <b>lastName</b>
+            <input type="text" placeholder="Enter lastName" name="lastName" required >
+
+            <b>Email</b>
+            <input type="text" placeholder="Enter Email" name="Email" required >
+
+            <b>Zip Code</b>
+            <input type="text" placeholder="Enter Zip Code" name="Zip_Code" required>
+
+            <b>Password</b>
+            <input name="psw" placeholder="Enter Password" required type="password">
+
+            <b>Repeat Password</b>
+            <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+        </label>
+        <button>sign up</button>
+    </div>
+    <script src="../js/script.js"></script>
+</body>
+</html>

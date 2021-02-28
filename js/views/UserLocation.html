@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<!-- DISPLAYS THE USER'S PAST AND CURRENT LOCATIONS.
+A SUBPAGE OF USER: User/UserLocation
+Allows current Users to add new locations (which is added to LocationVaults db)-->
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Location</title>
+  <link rel="stylesheet" href="css/sign.css">
+</head>
+<body>
+<!--    <h1>Weather Vault ®</h1>-->
+    <h1>Location</h1>
+    <div class="topnav">
+        <a href="../js/views/UserLogin.html" class="button"><i class="fa fa-sign-in"> Login </i></a>
+        <a href="../js/views/UserSignUp.html" class="button"><i class="fa fa-user-plus"> Sign up </i></a>
+        <a href="../js/views/UserWeather.html" class="button"><i class="fa fa-sun-o"> Weather</i></a>
+        <a href="../js/views/UserLocation.html" class="button"><i class="fa fa-map-marker"> Locations </i></a>
+        <a href="../js/views/UserAccount.html" class="button"><i class="fa fa-user-o"> My page</i></a>
+        <a href="../js/views/search.html" class="button"><i class="fa fa-search"> Search </i></a>
+    </div>
+
+    <p id="date"></p>
+    <script>
+      document.getElementById("date").innerHTML = Date();
+    </script>
+    <p> City name: Corvallis </p>
+    <p> Zip Code: 97330 97333 43000</p>
+    <label>
+    <input placeholder="add new location">
+    <!-- new location is pushed into LocationVaults table in db -->
+        <input type="button" onclick="location.href =''" value="add"><br>
+    </label>
+    <label>
+        <input placeholder="delete location">
+<!--        <button> delete location </button>-->
+        <input type="button" onclick="location.href =''" value="delete">
+    </label>
+</body>
+</html>
