@@ -2,6 +2,11 @@
   "name": "code",
   "version": "1.0.0",
   "dependencies": {
+<<<<<<< HEAD
     "express": "^4.17.1"
+=======
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+>>>>>>> 0ade028 (added new file 'users.js' which will get the info from the db. it still need to be populated.)
   }
 }
