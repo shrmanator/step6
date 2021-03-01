@@ -4,7 +4,8 @@ const sql = require('mysql');
 const mysql = require('./dbcon');
 const bodyParser = require('body-parser');
 const app = express();
-app.use(express.static(__dirname + '/css'));
+app.use(express.static('./css'));
+const path = require("ejs");
 
 
 app.engine('html', require('ejs').renderFile);
@@ -21,13 +22,10 @@ app.use(bodyParser.json());
 app.set('mysql', mysql);
 
 
-
 app.get('/', function (req, res) {
-    res.render('index', {});
+    res.render('index');
 });
 
-<<<<<<< HEAD
-// Insert new UserAcccount into db
 app.post("/UserRegistration", (req, res) => {
     let mysql = req.app.get('mysql');
     let sql = `INSERT INTO UserRegistrations (lastName, firstName, password, email, zipCode) VALUES (?, ?, ?, ?, ?)`;
@@ -143,7 +141,6 @@ app.post("/deleteUserAccount", (req, res) => {
         res.send(queryResults);
     });
 });
-=======
 
 // // Insert new UserAcccount into db
 // app.post("/UserRegistration", (req, res) => {
@@ -261,13 +258,12 @@ app.post("/deleteUserAccount", (req, res) => {
 //         res.send(queryResults);
 //     });
 // });
->>>>>>> 0ade028 (added new file 'users.js' which will get the info from the db. it still need to be populated.)
 
 app.set('port', process.argv[2]);
 
 app.listen(app.get('port'), function(){
     console.log('Express started on http://localhost:' + app.get('port') 
     + '; press Ctrl-C to terminate.');}
-     );
+    );
 
      
