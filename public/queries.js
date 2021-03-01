@@ -26,23 +26,45 @@ app.get('/', function (req, res) {
     res.render('index');
 });
 
-app.post("/UserRegistration", (req, res) => {
-    let mysql = req.app.get('mysql');
-    let sql = `INSERT INTO UserRegistrations (lastName, firstName, password, email, zipCode) VALUES (?, ?, ?, ?, ?)`;
-    let render = [req.body.lastName, req.body.firstName, req.body.password, req.body.email, req.body.zipCode];
-    mysql.pool.query(sql, inserts, function (error) {
-        let msg = ""
-        if (error) {
-            let msg = "incorrect info"
-        } else {
-            let msg = ` ${req.body.firstName}, your email is ${req.body.email} and your account is ready to use.`;
-        }
-        res.render('UserSignUp', {});
-    });
+app.get('/index.html', function (req, res) {
+    res.render('index');
 });
 
+
+
+
+/* displays the number of guides for a specific climate */
+app.get("/UserSignup.html", (req, res) => {
+    let callbackCount = 0;
+    let context = {};;
+    let mysql = req.app.get('mysql');
+    getGuides(res, mysql, context, complete);
+    function complete () {
+        callbackCount ++;
+        if (callbackCount >= 2) {
+            res.render('guides', context);
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
 // Select a user from the UserAccounts table given email and password.
-app.get("/UserLogin", (req, res) => {
+app.post("/UserSignup.html", (req, res) => {
+    let mysql = req.app.get('mysql');
+    let sql = `SELECT userID, lastName, firstName, email FROM UserSignUps WHERE email = ? AND password = ?`;
+
+});
+
+
+
+app.get("/UserWeather.html", (req, res) => {
     let mysql = req.app.get('mysql');
     let sql = `SELECT userID, lastName, firstName, email FROM UserSignUps WHERE email = ? AND password = ?`;
     let data = [req.query.email, req.query.password];
@@ -57,13 +79,85 @@ app.get("/UserLogin", (req, res) => {
             queryResults["lastName"] = results[0].lastName;
             queryResults["email"] = results[0].email;
         }
-        res.render('UserLogin', {data});
+        res.render('UserWeather', {data});
+    });
+});
+
+app.get("/UserLocation.html", (req, res) => {
+    let mysql = req.app.get('mysql');
+    let sql = `SELECT userID, lastName, firstName, email FROM UserSignUps WHERE email = ? AND password = ?`;
+    let data = [req.query.email, req.query.password];
+    mysql.pool.query(sql, data, function (error, results, fields) {
+        const queryResults = {};
+        if (error || results[0] == null) {
+            queryResults["successful"] = false;
+        } else {
+            queryResults["successful"] = true;
+            queryResults["userID"] = results[0].userID;
+            queryResults["firstName"] = results[0].firstName;
+            queryResults["lastName"] = results[0].lastName;
+            queryResults["email"] = results[0].email;
+        }
+        res.render('UserLocation', {data});
+    });
+});
+
+app.get("/UserAccount.html", (req, res) => {
+    let mysql = req.app.get('mysql');
+    let sql = `SELECT userID, lastName, firstName, email FROM UserSignUps WHERE email = ? AND password = ?`;
+    let data = [req.query.email, req.query.password];
+    mysql.pool.query(sql, data, function (error, results, fields) {
+        const queryResults = {};
+        if (error || results[0] == null) {
+            queryResults["successful"] = false;
+        } else {
+            queryResults["successful"] = true;
+            queryResults["userID"] = results[0].userID;
+            queryResults["firstName"] = results[0].firstName;
+            queryResults["lastName"] = results[0].lastName;
+            queryResults["email"] = results[0].email;
+        }
+        res.render('UserAccount', {data});
+    });
+});
+
+app.get("/search.html", (req, res) => {
+    let mysql = req.app.get('mysql');
+    let sql = `SELECT userID, lastName, firstName, email FROM UserSignUps WHERE email = ? AND password = ?`;
+    let data = [req.query.email, req.query.password];
+    mysql.pool.query(sql, data, function (error, results, fields) {
+        const queryResults = {};
+        if (error || results[0] == null) {
+            queryResults["successful"] = false;
+        } else {
+            queryResults["successful"] = true;
+            queryResults["userID"] = results[0].userID;
+            queryResults["firstName"] = results[0].firstName;
+            queryResults["lastName"] = results[0].lastName;
+            queryResults["email"] = results[0].email;
+        }
+        res.render('search', {data});
     });
 });
 
 
+app.post("/UserSignUp.html", (req, res) => {
+    let mysql = req.app.get('mysql');
+    let sql = `INSERT INTO UserRegistrations (lastName, firstName, password, email, zipCode) VALUES (?, ?, ?, ?, ?)`;
+    let render = [req.body.lastName, req.body.firstName, req.body.password, req.body.email, req.body.zipCode];
+    mysql.pool.query(sql, inserts, function (error) {
+        let msg = ""
+        if (error) {
+            let msg = "incorrect info"
+        } else {
+            let msg = ` ${req.body.firstName}, your email is ${req.body.email} and your account is ready to use.`;
+        }
+        res.render('UserSignUp', {});
+    });
+});
+
 // Insert new Location into UserLocationsHistory:
-app.post("/UserRegistration", (req, res) => {
+app.post("/UserRegistration.html", (req, res) => {
     let mysql = req.app.get('mysql');
     let sql = `INSERT INTO UserLocationHistory VALUES (?, ?, ?)`;
     let inserts = [req.body.zipCode]
@@ -79,7 +173,7 @@ app.post("/UserRegistration", (req, res) => {
 });
 
 // Select specific user:
-app.post("/getUser", (req, res) => {
+app.post("/getUser.html", (req, res) => {
     let mysql = req.app.get('mysql');
     let sql = `SELECT UserAccounts.userID FROM UserAccounts WHERE UserAccounts.userID = ?`;
     let insert = [req.body.userID]
@@ -108,7 +202,6 @@ app.post("/getGuides", (req, res) => {
         res.send(queryResults);
     });
 });
-
 
 
 // Delete a specific UserLocation:
